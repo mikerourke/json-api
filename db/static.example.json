@@ -1,0 +1,55 @@
+{
+  "features": [
+    {
+      "name": "featureFlag1",
+      "description": "Allow wolf to run after prey.",
+      "isEnabled": false
+    },
+    {
+      "name": "featureFlag2",
+      "description": "Allow wolf to howl at other wolves.",
+      "isEnabled": true
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "wolf",
+      "fullName": "Wolf Wolferson",
+      "title": "Wolf Manager",
+      "password": "wolf1",
+      "phone": "+123456WOLF",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "shewolf",
+      "fullName": "Wolfita Wolfaranjado",
+      "title": "Wolf Accountant",
+      "password": "wolf2",
+      "phone": "+123456HOWL",
+      "role": "office"
+    }
+  ],
+  "settings": [
+    {
+      "id": 1,
+      "category": "lists",
+      "settingName": "listOfSettings",
+      "data": [
+        "Setting 1",
+        "Setting 2",
+        "Setting 3"
+      ]
+    },
+    {
+      "id": 2,
+      "category": "thangs",
+      "settingName": "settingObject",
+      "data": {
+        "claw": 1,
+        "fang": true
+      }
+    }
+  ]
+}

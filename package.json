@@ -1,0 +1,25 @@
+{
+  "name": "json-api",
+  "version": "1.0.0",
+  "description": "Library for mocking API with data generation.",
+  "author": "Mike Rourke <mike.rourke@panderalabs.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panderasystems/api-wolf"
+  },
+  "scripts": {
+    "generate": "node lib/generator.js",
+    "generate:example": "NODE_ENV=example node lib/generator.js",
+    "start": "nodemon lib/index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.0.1",
+    "chance": "^1.0.10",
+    "faker": "^4.1.0",
+    "json-schema-faker": "^0.4.3",
+    "json-server": "^0.12.0",
+    "jsonfile": "^3.0.1",
+    "nodemon": "^1.11.0"
+  }
+}

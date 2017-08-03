@@ -1,0 +1,215 @@
+{
+  "changes": {
+    "type": "array",
+    "minItems": 5,
+    "maxItems": 10,
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "title": {
+          "type": "string",
+          "chance": {
+            "sentence": {
+              "words": 5
+            }
+          }
+        },
+        "details": {
+          "type": "string",
+          "chance": {
+            "sentence": {
+              "words": 10
+            }
+          }
+        },
+        "createdBy": {
+          "type": "string",
+          "pattern": "wolf|shewolf"
+        },
+        "createdAt": {
+          "type": "number",
+          "chance": "timestamp",
+          "minimum": 1451606400
+        },
+        "updatedBy": {
+          "type": "string",
+          "pattern": "wolf|shewolf"
+        },
+        "updatedAt": {
+          "type": "number",
+          "chance": "timestamp",
+          "minimum": 1451606400
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "details",
+        "createdBy",
+        "createdAt",
+        "updatedBy",
+        "updatedAt"
+      ]
+    }
+  },
+  "wolves": {
+    "type": "array",
+    "minItems": 100,
+    "maxItems": 150,
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 0,
+          "exclusiveMinimum": true
+        },
+        "fullName": {
+          "type": "string",
+          "faker": "name.findName"
+        },
+        "contactName": {
+          "type": "string",
+          "faker": "name.findName"
+        },
+        "snack": {
+          "type": "string",
+          "pattern": "Cheese|Crackers"
+        },
+        "fee": {
+          "type": "integer",
+          "faker": "finance.amount"
+        },
+        "phone": {
+          "type": "string",
+          "chance": {
+            "phone": {
+              "country": "us"
+            }
+          },
+          "pattern": "phoneNumber"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "faker": "internet.email"
+        },
+        "address": {
+          "type": "string",
+          "faker": "address.streetAddress"
+        },
+        "lat": {
+          "type": "number",
+          "faker": "address.latitude"
+        },
+        "lng": {
+          "type": "number",
+          "faker": "address.longitude"
+        },
+        "description": {
+          "type": "string",
+          "chance": {
+            "sentence": {
+              "words": 10
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "pattern": "Pending|In Process"
+        },
+        "notes": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "minimum": 0,
+                "exclusiveMinimum": true
+              },
+              "contents": {
+                "type": "string",
+                "chance": {
+                  "sentence": {
+                    "words": 10
+                  }
+                }
+              },
+              "createdBy": {
+                "type": "string",
+                "pattern": "wolf|shewolf"
+              },
+              "createdAt": {
+                "type": "number",
+                "chance": "timestamp",
+                "minimum": 1451606400
+              },
+              "updatedBy": {
+                "type": "string",
+                "pattern": "wolf|shewolf"
+              },
+              "updatedAt": {
+                "type": "number",
+                "chance": "timestamp",
+                "minimum": 1451606400
+              }
+            },
+            "required": [
+              "id",
+              "contents",
+              "createdBy",
+              "createdAt",
+              "updatedBy",
+              "updatedAt"
+            ]
+          }
+        },
+        "createdBy": {
+          "type": "string",
+          "pattern": "wolf|shewolf"
+        },
+        "createdAt": {
+          "type": "number",
+          "chance": "timestamp",
+          "minimum": 1451606400
+        },
+        "updatedBy": {
+          "type": "string",
+          "pattern": "wolf|shewolf"
+        },
+        "updatedAt": {
+          "type": "number",
+          "chance": "timestamp",
+          "minimum": 1451606400
+        }
+      },
+      "required": [
+        "id",
+        "fullName",
+        "contactName",
+        "source",
+        "fee",
+        "phone",
+        "email",
+        "address",
+        "lat",
+        "lng",
+        "description",
+        "status",
+        "notes",
+        "createdBy",
+        "createdAt",
+        "updatedBy",
+        "updatedAt"
+      ]
+    }
+  }
+}
