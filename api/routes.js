@@ -1,5 +1,7 @@
 /**
- * Setup custom routes here.
+ * Setup custom routes here.  The database is powered by lowdb, which is a small local JSON
+ *    database powered by lodash.
+ * @see https://github.com/typicode/lowdb
  */
 
 module.exports = (router, server) => {
@@ -10,7 +12,7 @@ module.exports = (router, server) => {
     const wolves = db.get('wolves')
       .value();
     res.jsonp(wolves);
-  })
+  });
 
   server.get('/wolves/:id', (req, res) => {
     const wolfId = req.params.id;
@@ -18,7 +20,7 @@ module.exports = (router, server) => {
       .getById(wolfId)
       .value();
     res.jsonp(wolf);
-  })
+  });
 
   server.get('/wolves/:username', (req, res) => {
     const wolfUser = req.params.username;
@@ -26,7 +28,7 @@ module.exports = (router, server) => {
       .find({ username: wolfUser })
       .value();
     res.jsonp(wolf);
-  })
+  });
 
   // POST route
   server.post('/wolves', (req, res) => {
@@ -35,7 +37,7 @@ module.exports = (router, server) => {
       .push(newWolf)
       .write();
     res.jsonp(newWolf);
-  })
+  });
 
   // PUT route
   server.put('/wolves/:id', (req, res) => {
@@ -46,16 +48,16 @@ module.exports = (router, server) => {
       .assign(updatedWolf)
       .write();
     res.jsonp(updatedWolf);
-  })
+  });
 
   // DELETE route
-  server.delete('wolves/:id', (req, res) => {
+  server.delete('/wolves/:id', (req, res) => {
     const wolfId = req.params.id;
     db.get('wolves')
       .remove({ id: wolfId })
       .write();
     res.send(200);
-  })
+  });
 
   return server;
 };

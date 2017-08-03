@@ -10,16 +10,24 @@ const jsonFile = require('jsonfile');
 
 // JSON files associated with data generation:
 const exampleAppend = (process.env.NODE_ENV === 'example') && '.example';
-const schema = require(`../db/schema${exampleAppend}.json`);
-const dbPath = path.resolve(process.cwd(), 'db');
-const schemaFilePath = `${dbPath}/schema${exampleAppend}.json`;
-const dbFilePath = `${dbPath}/db.json`;
-const staticFilePath = `${dbPath}/static${exampleAppend}.json`;
+const filePaths = {
+  schema: `${__dirname}/db/schema${exampleAppend}.json`,
+  db: `${__dirname}/db/db.json`,
+  static: `${__dirname}/db/static${exampleAppend}.json`,
+};
 
-const getSampleData = staticData => {
+const schemaFile = require(filePaths.schema); // eslint-disable-line
+
+/**
+ * Generates sample data based of the schema defined and appends the static data to the result
+ *    that will be written to the db.json file.
+ * @param {Object} staticData Data to the generated data.
+ * @returns {Object}
+ */
+const getSampleData = (staticData) => {
   const sampleData = {};
-  Object.keys(schema).forEach((schemaName) => {
-    sampleData[schemaName] = jsf(schema[schemaName]);
+  Object.keys(schemaFile).forEach((schemaName) => {
+    sampleData[schemaName] = jsf(schemaFile[schemaName]);
   });
   return Object.assign({}, sampleData, staticData);
 };
@@ -49,32 +57,35 @@ const writeGeneratedDataToFile = staticData => new Promise((resolve, reject) => 
   console.log(cyan('Generating sample data...'));
   const sampleData = getSampleData(staticData);
 
+  const dbFilePath = filePaths.db;
   console.log(cyan('Writing data to file...'));
   writeDataToJsonFile(dbFilePath, sampleData)
     .then(() => resolve())
-    .catch(err => { reject(new Error(`Error writing data to file: ${err}`)); });
+    .catch((err) => { reject(new Error(`Error writing data to file: ${err}`)); });
 });
 
 /**
- * Reads the contents of the static.json file and returns a promise with the
- *    content as the resolution.
+ * Reads the contents of the static.json file and returns a promise with the content as the
+ *    resolution.
  * @returns {Promise}
  */
 const getStaticDbContent = () => new Promise((resolve, reject) => {
+  const staticFilePath = filePaths.static;
   if (!fs.existsSync(staticFilePath)) {
     resolve({});
   }
   jsonFile.readFile(staticFilePath, (err, data) => {
-    if (err) reject(err)
+    if (err) reject(new Error(`Error reading static JSON file: ${err}`));
     resolve(data);
   });
 });
 
-if (!fs.existsSync(schemaFilePath)) {
-  console.log(red('Schema file not found!'))
+// If schema file is present, generate data, append static content, and write to db.json file.
+if (!fs.existsSync(filePaths.schema)) {
+  console.log(red('Schema file not found!'));
 } else {
   getStaticDbContent()
     .then(writeGeneratedDataToFile)
-    .then(() => console.log(green('Data generation complete.')))
-    .catch(error => console.log(red('Error generating data: ' + error)));
+    .then(() => console.log(green('Data generation complete. Howl')))
+    .catch(err => console.log(red(`Error occurred: ${err}`)));
 }
